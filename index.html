@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed ElZayat — IT Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --accent: #00d4aa;
+    --accent2: #3b82f6;
+    --text: #f0f4ff;
+    --muted: #8899bb;
+    --border: rgba(0,212,170,0.15);
+    --card-border: rgba(255,255,255,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content { max-width: 750px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,212,170,0.08);
+    border: 1px solid rgba(0,212,170,0.25);
+    border-radius: 100px;
+    padding: 0.35rem 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.8rem 1.8rem;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0e1a;
+  }
+
+  .btn-primary:hover { background: #00ebbf; transform: translateY(-2px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--card-border);
+  }
+
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 800;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* EXPERIENCE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 1fr 40px 2fr;
+    gap: 0 0;
+    position: relative;
+  }
+
+  .timeline-left {
+    padding: 2rem 2rem 2rem 0;
+    text-align: right;
+  }
+
+  .timeline-company {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(0,212,170,0.2);
+    margin-top: 2rem;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .timeline-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+  }
+
+  .timeline-right {
+    padding: 1.8rem 0 1.8rem 2rem;
+  }
+
+  .timeline-role {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+  }
+
+  .timeline-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(0,212,170,0.3);
+    transform: translateY(-2px);
+  }
+
+  .skill-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .skill-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .cert-card:hover { border-color: rgba(59,130,246,0.4); }
+
+  .cert-badge {
+    display: inline-block;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 6px;
+    padding: 0.2rem 0.6rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    width: fit-content;
+  }
+
+  .cert-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .cert-provider {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* CONTACT */
+  .contact-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .contact-info h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-info p {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  .contact-link-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .qr-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .linkedin-box {
+    background: var(--surface2);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .linkedin-icon-big {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .linkedin-box p {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* SCROLL ANIMATION */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding: 5rem 1.5rem 3rem; }
+    .timeline-item { grid-template-columns: 40px 1fr; }
+    .timeline-left { display: none; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+  }
+
+  /* WELCOME OVERLAY */
+  #welcome-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 9, 18, 0.55);
+    backdrop-filter: blur(24px) brightness(0.6);
+    -webkit-backdrop-filter: blur(24px) brightness(0.6);
+    transition: opacity 0.8s ease;
+  }
+
+  #welcome-overlay.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .welcome-card {
+    background: rgba(17, 24, 39, 0.85);
+    border: 1px solid rgba(0,212,170,0.25);
+    border-radius: 24px;
+    padding: 3.2rem 2.8rem 2.8rem;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 80px rgba(0,212,170,0.07), 0 40px 80px rgba(0,0,0,0.5);
+    animation: popIn 0.6s cubic-bezier(0.34,1.4,0.64,1) both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .welcome-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,212,170,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .welcome-avatar {
+    width: 68px; height: 68px;
+    border-radius: 50%;
+    background: rgba(0,212,170,0.1);
+    border: 2px solid rgba(0,212,170,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.6rem;
+  }
+
+  .welcome-card h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+    color: #f0f4ff;
+  }
+
+  .welcome-card h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .welcome-sub {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .welcome-input-wrap {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .welcome-input-icon {
+    position: absolute;
+    left: 1rem; top: 50%; transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  .welcome-input {
+    width: 100%;
+    background: rgba(26, 34, 53, 0.8);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+    color: #f0f4ff;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .welcome-input:focus {
+    border-color: rgba(0,212,170,0.45);
+    box-shadow: 0 0 0 3px rgba(0,212,170,0.07);
+  }
+
+  .welcome-input::placeholder { color: rgba(136,153,187,0.6); }
+
+  .lang-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .lang-btn {
+    padding: 0.6rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(26,34,53,0.6);
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .lang-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,212,170,0.08);
+  }
+
+  .welcome-enter {
+    width: 100%;
+    padding: 0.95rem;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent);
+    color: #0a0e1a;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .welcome-enter:hover { background: #00ebbf; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,170,0.2); }
+  .welcome-enter:active { transform: scale(0.98); }
+  .welcome-enter:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  #visitor-greeting {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 500;
+    background: #111827;
+    border: 1px solid rgba(0,212,170,0.25);
+    border-radius: 14px;
+    padding: 0.9rem 1.3rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    animation: slideUp 0.5s ease;
+    max-width: 260px;
+  }
+
+  #visitor-greeting strong { color: var(--accent); }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- WELCOME OVERLAY -->
+<div id="welcome-overlay">
+  <div class="welcome-card">
+    <div class="welcome-avatar">👋</div>
+    <h2>مرحباً <em>/ Welcome</em></h2>
+    <p class="welcome-sub" id="overlay-sub">أدخل اسمك للمتابعة<br>Enter your name to continue</p>
+    <div class="welcome-input-wrap">
+      <span class="welcome-input-icon">✦</span>
+      <input class="welcome-input" id="visitor-name" type="text" placeholder="اسمك / Your name" maxlength="40" autocomplete="off" />
+    </div>
+    <div class="lang-btns">
+      <button class="lang-btn active" id="btn-ar" onclick="selectLang('ar')">🇪🇬 العربية</button>
+      <button class="lang-btn" id="btn-en" onclick="selectLang('en')">🇬🇧 English</button>
+    </div>
+    <button class="welcome-enter" id="enter-btn" onclick="enterSite()" disabled>ادخل / Enter</button>
+  </div>
+</div>
+
+<div id="visitor-greeting"></div>
+
+<nav>
+  <a class="nav-logo" href="#">ME.</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span></span>
+      Available for new opportunities
+    </div>
+    <h1>
+      Mohamed
+      <em>ElZayat</em>
+    </h1>
+    <p class="hero-sub">
+      IT Specialist & Help Desk Engineer with hands-on experience in network infrastructure, end-user support, and enterprise IT environments across Egypt.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-secondary">View experience</a>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="fade-in">
+    <p class="section-label">// career path</p>
+    <h2 class="section-title">Work Experience</h2>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-left">
+        <p class="timeline-company">Magrabi Health</p>
+        <p class="timeline-date">Current</p>
+      </div>
+      <div class="timeline-connector">
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">IT Specialist & Application Support</p>
+        <p class="timeline-desc">Providing full end-user technical support, managing Office 365, configuring desktops & laptops, diagnosing hardware/software issues, and handling daily IT service tickets in a large healthcare environment.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-left">
+        <p class="timeline-company">Ghatwary Medical GMS</p>
+        <p class="timeline-date">Aug 2023 – May 2025</p>
+      </div>
+      <div class="timeline-connector">
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">IT Specialist</p>
+        <p class="timeline-desc">Handled daily IT support, resolved LAN/WAN and connectivity issues, installed hardware/software components, and ensured secure data storage and system integrity for medical operations.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-left">
+        <p class="timeline-company">Int'l Center for Electronics</p>
+        <p class="timeline-date">Apr 2023 – Aug 2023</p>
+      </div>
+      <div class="timeline-connector">
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">IT Specialist</p>
+        <p class="timeline-desc">IT support and network troubleshooting for computer networks in an electronics-focused training environment.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-left">
+        <p class="timeline-company">Zahran Market</p>
+        <p class="timeline-date">Previous</p>
+      </div>
+      <div class="timeline-connector">
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">IT Help Desk</p>
+        <p class="timeline-desc">Provided end-user technical support, maintained desktop environments, managed Office 365, configured new devices, and documented all support interactions and resolutions.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-left">
+        <p class="timeline-company">Sutherland Global</p>
+        <p class="timeline-date">Internship</p>
+      </div>
+      <div class="timeline-connector">
+        <div class="timeline-dot"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-right">
+        <p class="timeline-role">IT Desk Support Intern</p>
+        <p class="timeline-desc">Gained hands-on experience in ticketing systems, SentinelOne device monitoring, Office 365 management, and remote control interventions in an international BPO environment.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="fade-in">
+    <p class="section-label">// what i bring</p>
+    <h2 class="section-title">Skills & Abilities</h2>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🌐</div>
+      <h3>Networking</h3>
+      <p>LAN/WAN troubleshooting, connectivity diagnosis, and network configuration across enterprise environments.</p>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🖥️</div>
+      <h3>Desktop Support</h3>
+      <p>Full hardware/software setup, configuration, diagnosis, and resolution for Windows environments.</p>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">☁️</div>
+      <h3>Office 365</h3>
+      <p>Management, troubleshooting, and user support for Microsoft 365 services and productivity tools.</p>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🎫</div>
+      <h3>Ticketing Systems</h3>
+      <p>Handling, documenting, and escalating IT incidents with thorough record-keeping and follow-through.</p>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🔒</div>
+      <h3>Device Security</h3>
+      <p>Endpoint monitoring via SentinelOne and remote intervention for security incidents.</p>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-icon">🤝</div>
+      <h3>Communication</h3>
+      <p>Clear, professional communication with end users, escalation teams, and cross-functional stakeholders.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="fade-in">
+    <p class="section-label">// credentials</p>
+    <h2 class="section-title">Certifications</h2>
+  </div>
+
+  <div class="certs-grid">
+    <div class="cert-card fade-in">
+      <span class="cert-badge">Microsoft</span>
+      <p class="cert-name">MCSA</p>
+      <p class="cert-provider">New Horizons</p>
+    </div>
+    <div class="cert-card fade-in">
+      <span class="cert-badge">Cisco</span>
+      <p class="cert-name">CCNA</p>
+      <p class="cert-provider">New Horizons</p>
+    </div>
+    <div class="cert-card fade-in">
+      <span class="cert-badge">CompTIA</span>
+      <p class="cert-name">A+</p>
+      <p class="cert-provider">CompTIA</p>
+    </div>
+    <div class="cert-card fade-in">
+      <span class="cert-badge">CompTIA</span>
+      <p class="cert-name">Network+</p>
+      <p class="cert-provider">CompTIA</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrapper fade-in">
+    <div class="contact-info">
+      <h2>Let's connect.</h2>
+      <p>Based in Alexandria, Egypt. Open to IT roles, support positions, and network engineering opportunities locally or remotely.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:elzayatmondy@gmail.com">
+          <div class="contact-link-icon">✉️</div>
+          elzayatmondy@gmail.com
+        </a>
+        <a class="contact-link" href="tel:+201222282580">
+          <div class="contact-link-icon">📞</div>
+          +20 122 228 2580
+        </a>
+        <a class="contact-link" href="https://www.linkedin.com/in/mohamed-elzayat-766064237" target="_blank">
+          <div class="contact-link-icon">🔗</div>
+          LinkedIn Profile
+        </a>
+        <a class="contact-link" href="https://www.credly.com/users/mohamed-elzayat.e9038840" target="_blank">
+          <div class="contact-link-icon">🏅</div>
+          Credly Badges
+        </a>
+        <a class="contact-link" href="#">
+          <div class="contact-link-icon">📍</div>
+          Alexandria, Egypt
+        </a>
+      </div>
+    </div>
+    <div class="qr-side">
+      <div class="linkedin-box">
+        <div class="linkedin-icon-big">💼</div>
+        <p>Connect on LinkedIn to see full work history and endorsements</p>
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/mohamed-elzayat-766064237" target="_blank" style="width:100%; justify-content:center;">View LinkedIn →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Mohamed ElZayat &nbsp;·&nbsp; IT Specialist &nbsp;·&nbsp; Alexandria, Egypt</p>
+</footer>
+
+<script>
+  // WELCOME OVERLAY LOGIC
+  let selectedLang = 'ar';
+
+  const nameInput = document.getElementById('visitor-name');
+  const enterBtn = document.getElementById('enter-btn');
+
+  nameInput.addEventListener('input', () => {
+    enterBtn.disabled = nameInput.value.trim().length === 0;
+  });
+
+  function selectLang(lang) {
+    selectedLang = lang;
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    if (lang === 'ar') {
+      document.getElementById('overlay-sub').innerHTML = 'أدخل اسمك للمتابعة';
+      enterBtn.textContent = 'ادخل';
+      nameInput.placeholder = 'اسمك هنا...';
+    } else {
+      document.getElementById('overlay-sub').innerHTML = 'Enter your name to continue';
+      enterBtn.textContent = 'Enter';
+      nameInput.placeholder = 'Your name here...';
+    }
+  }
+
+  function enterSite() {
+    const name = nameInput.value.trim();
+    if (!name) return;
+
+    const overlay = document.getElementById('welcome-overlay');
+    overlay.classList.add('hide');
+    setTimeout(() => overlay.remove(), 900);
+
+    const greeting = document.getElementById('visitor-greeting');
+    if (selectedLang === 'ar') {
+      greeting.innerHTML = `أهلاً <strong>${name}</strong> 👋<br><span style="font-size:0.78rem;color:var(--muted)">نورت الموقع!</span>`;
+    } else {
+      greeting.innerHTML = `Welcome, <strong>${name}</strong> 👋<br><span style="font-size:0.78rem;color:var(--muted)">Glad you're here!</span>`;
+    }
+    greeting.style.display = 'block';
+    setTimeout(() => {
+      greeting.style.transition = 'opacity 0.6s';
+      greeting.style.opacity = '0';
+      setTimeout(() => greeting.remove(), 600);
+    }, 4500);
+  }
+
+  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !enterBtn.disabled) enterSite(); });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
